@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Edit Your Party</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="../../static/project_app/getdirections.css">
+            {% load static %}	
+    </head>
+
+    <body class="body ml-5" style="background-image: url(../../static/project_app/maxresdefault.jpg); background-size: 100% ;  ">
+        
+        <div class="row header">
+            <div class="col-9">
+                <!-- <h2 style="color: blue">Hello {{user.first_name}}!</h2> -->
+            </div>
+            <div class="col-3">
+                <a href="/logout">Log Out</a> |
+                <a href="/dashboard">Dashboard</a>
+            </div>
+        </div>
+        <div class="partybox">
+            <form action="/party/{{party.id}}/directionsprocess" method="POST">
+                {% csrf_token %}
+                <h2 style="color: white;">Let's get directions to the party!</h2>
+                <div>
+                    <h5>Title :  {{party.title}}</h5>
+                </div>
+
+                <div>
+                    <h5>Description : {{party.description}}</h5>
+                </div>
+                <div>
+                    <h5>Date : {{party.date}}</h5>
+                </div>
+
+                <h3> Starting Point  </h3>
+
+                <div class="row mt-2">
+                    <div class="col-1">
+                        <h5 style="color: white;">Address : </h5>
+                    </div>
+                    <div class="col-3">
+                        <input class="form-control" type="text" name="address" value="">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-1">
+                        <h5 style="color: white;">City : </h5>
+                    </div>
+                    <div class="col-3">
+                        <input class="form-control" type="text" name="city" value="">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-1">
+                        <h5 style="color: white;">State : </h5>
+                    </div>
+                    <div class="col-3">
+                        <input class="form-control" type="text" name="state" value="">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-1">
+                        <h5 style="color: white;">Zip Code : </h5>
+                    </div>
+                    <div class="col-3">
+                        <input class="form-control" type="integer" name="zip_code" value="">
+                    </div>
+                </div>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+                <div class="row mt-4">
+                    <div class="col-1 offset-1">
+                        <button type="submit" class="btn btn-primary">Go</button>
+                    </div>
+                    <div class="col-1 offset-1">
+                        <a href="/dashboard" class="btn btn-primary">Cancel</a>
+                </div>
+            </form>
+        </div>
+        <div class="direction" id="googleMap" style="width:40%;height:400px;"></div>
+
+        <script>
+            // var lat = {{response.end_location.lat}};
+            console.log(lat);
+            function myMap() {
+            var mapProp= {
+            center:new google.maps.LatLng(47.5957085,-122.1951214),
+            zoom:5,
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+            }
+        </script>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQbYayzz2KpHtrBVX2nwGpPUTWILxJlTw&callback=myMap"></script>
+        {{other}}
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+            </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+            integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous">
+            </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+            integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous">
+            </script>
+    </body>
+
+</html>

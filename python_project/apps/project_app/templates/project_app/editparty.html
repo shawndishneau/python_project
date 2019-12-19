@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Edit Your Party</title>
+    </head>
+    <body>
+        <div class="header">
+            <h2>Hello, {{user.first_name}}!</h2>
+            <h2>Let's edit your party!</h2>
+            <a href="/logout">Log Out</a>
+            <a href="/dashboard"><button>Back to dashboard</button></a>
+        </div>
+        <div class="paratybox">
+            <form action="/party/{{party.id}}/editprocess" method="POST">  
+                {% csrf_token %}
+                <div>
+                    Title: <input type="text" name="title" value="{{party.title}}">
+                </div>
+                <div>
+                    Description: <textarea type="input" name="description">{{party.description}}</textarea>
+                </div>
+                <div>
+                    Address: <input type="text" name="address" value="{{party.address}}">
+                </div>
+                <div>
+                    City: <input type="text" name="city" value="{{party.city}}">
+                </div>
+                <div>
+                    State: <input type="text" name="state" value="{{party.state}}">
+                </div>
+                <div>
+                    Zip Code: <input type="text" name="zip_code" value="{{party.zip_code}}">
+                </div>
+                <div>
+                    Date: <input type="date" name="date" value="{{party.date}}">
+                </div>
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+                <button type="submit">Update</button>
+            </form>
+            <a href="/dashboard"><button>Cancel</button></a>
+        </div>
+    </body>
+</html>

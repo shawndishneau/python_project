@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>The Thrill Zone App</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="header">
+                <h2>Hello, {{user.first_name}}!</h2>
+                <h2>Here are the details of this party</h2>
+                <a href="/logout">Log Out</a>
+                <a href="/dashboard"><button>Back to dashboard</button></a>
+            </div>
+            <div class="tripbox">
+                {% csrf_token %}
+                <h3>{{party.title}}</h3>
+                <p>Description: {{party.description}}</p>
+                <p>Address: {{party.address}}</p>
+                <p>City: {{party.city}}</p>
+                <p>State: {{party.state}}</p>
+                <p>Zip Code: {{party.zip_code}}</p>
+                <p>Date: {{party.date}}</p>
+                {% if party.creator.id == user.id %}
+                    <a href="/party/{{party.id}}/editinfo"><button>Edit Party</button></a>
+                    <a href="/party/{{party.id}}/removeprocess"><button>Remove Party</button></a>
+                {% else %}
+                    <a href="/party/{{party.id}}/writemessage"><button>Write a Message</button></a>
+                {% endif %}
+            </div>
+            <div class="tripbox">
+                {% csrf_token %}
+                <h3>People who have joined this party</h3>
+                <ul>
+                    {% if acreator == user.id %}
+                        {% for person in else %}
+                            <li>{{person.first_name}} {{person.last_name}}</li>
+                        {% endfor %}
+                    {% else %}
+                        {% for person in participants %}
+                            <li>{{person.first_name}} {{person.last_name}}</li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+                {% if party.acreator != user and user not in participants %}
+                    <a href="/party/{{party.id}}/joinprocess"><button>Join Party</button></a>
+                    {% elif trip.creator == user %}
+                    <a href="/party/{{party.id}}/cancelprocess"><button>Cancel</button></a>
+                {% endif %}
+            </div>
+    </body>
+</html>

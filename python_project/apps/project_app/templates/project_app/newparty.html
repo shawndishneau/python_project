@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>The Thrill Zone App</title>
+    </head>
+    <body>
+        <div class="header">
+            <h2>Hello, {{user.first_name}}!</h2>
+            <a href="/logout">Log Out</a>
+            <a href="/dashboard"><button>Back to dashboard</button></a>
+        </div>
+        <div class="partybox">
+            <h3>Make a New Party</h3>
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+            {% endif %}
+            <form action="/makepartyprocess" method="POST">
+                {% csrf_token %}
+                <div>
+                    Title: <input type="text" name="title">
+                </div>                
+                <div>
+                    Description: <input type="text" name="description">
+                </div>
+                <div>
+                    Address: <input type="text" name="address">
+                </div>
+                <div>
+                    City: <input type="text" name="city">
+                </div>
+                <div>
+                    State: <input type="text" name="state">
+                </div>
+                <div>
+                    Zip Code: <input type="integer" name="zip_code">
+                </div>               
+                <div>
+                    Date: <input type="date" name="date">
+                </div>               
+                <div>
+                    <button type="submit">Submit</button>
+                </div>                
+            </form>
+            <a href="/dashboard"><button>Cancel</button></a>
+        </div>
+    </body>
+</html>

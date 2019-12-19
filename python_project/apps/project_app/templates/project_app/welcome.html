@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The Thrill Zone App</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="regbox">
+            <h2>Register</h2>
+            <form action="/registrationprocess" method="POST">
+                {% csrf_token %}
+                First name: <input type="text" name="first_name">
+                <div>
+                    {% if messages %}
+                        <ul class="messages">    
+                            {% for message in messages %}
+                                {% if message.extra_tags == 'first_name' %}    
+                                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}     
+                <!-- first_name comes from models.py -->
+                </div>
+                <div>
+                    Last name: <input type="text" name="last_name">
+                    <!-- last_name comes from models.py -->
+                    {% if messages %}
+                        <ul class="messages">    
+                            {% for message in messages %}
+                                {% if message.extra_tags == 'last_name' %}    
+                                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div>
+                    Email: <input type="text" name="email">
+                    <!-- email comes from models.py -->
+                    {% if messages %}
+                        <ul class="messages">    
+                            {% for message in messages %}
+                                {% if message.extra_tags == 'email' %}    
+                                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div>
+                    Password: <input type="password" name="password">
+                    <!-- password comes from models.py -->
+                    {% if messages %}
+                        <ul class="messages">    
+                            {% for message in messages %}
+                                {% if message.extra_tags == 'password' %}    
+                                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div>
+                    Confirm: <input type="password" name="confirm">
+                    <!-- confirm comes from the UserManager -->
+                    {% if messages %}
+                        <ul class="messages">    
+                            {% for message in messages %}
+                                {% if message.extra_tags == 'cpassword' %}    
+                                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+            <h2>Login</h2>
+            <form action="/loginprocess" method="POST">
+                {% csrf_token %} 
+                <div>
+                    Email: <input type="text" name="log_email">
+                    <!-- email comes from models.py -->
+                    {% if messages %}
+                        <ul class="messages">    
+                            {% for message in messages %}
+                                {% if message.extra_tags == 'log_email' %}    
+                                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>                 
+                <div>
+                    Password: <input type="password" name="log_password">
+                    <!-- password comes from models.py -->
+                    {% if messages %}
+                        <ul class="messages">    
+                            {% for message in messages %}
+                                {% if message.extra_tags == 'log_password' %}    
+                                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

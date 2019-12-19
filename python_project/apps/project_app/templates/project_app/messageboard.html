@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Questions about the party</title>
+</head>
+<body>
+    <h3>Welcome, {{ current_user.first_name }}!</h3>
+    <h2>Feel free to write a message</h2>
+    <a href="/logoutprocess">Logout</a>
+    <h4>Post a message</h4>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li {% if message.tags %} style="list-style-type: none;" class="{{ messages.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% for Message in user_messages %}
+    <ul>
+        <li>{{ Message.user.first_name }} {{ Message.user.last_name }} {{ Message.created_at }}</li>
+        <!-- user is the FK in models in class Messages-->
+        <li>{{ Message.message }}</li>
+        <ul>
+            {% for Comment in Message.comment_to_message.all %}
+            <li>{{Comment.comment}}</li>
+            <!-- comment = models.TextField()in class Comments -->
+            <!-- Comment is just a random variable I assigned -->
+            <li>posted by: {{ Comment.commentmaker.first_name }} {{ Comment.commentmaker.last_name }}</li>
+            {% endfor %}
+        </ul>
+        <form action="/addcommentprocess" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="msgid" value="{{Message.id}}">
+            <ul>
+                <li><textarea name="comment"></textarea>
+                <button type="submit">Post a comment</button></li>
+            </ul>
+        </form>
+    </ul>
+    {% endfor %}
+    <form action="/addmessage_process" method="POST">
+        {% csrf_token %}
+        <textarea name="message"></textarea>
+        <button type="submit">Post a message</button>
+    </form>
+</body>
+</html>

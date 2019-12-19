@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>The Thrill Zone App</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="../../static/project_app/welcome.css">
+    </head>
+    <body class="body" style="background-image: url('static/project_app/hall.jpg'); background-size: 100%; ">
+        <div class="signup-form">
+            <form action="/registrationprocess" method="POST">
+                {% csrf_token %}
+              
+                <h2>Register</h2>
+                <p class="hint-text">Create your account. It's free and only takes a minute.</p>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="first_name" placeholder="First Name">
+                    {% if messages %}
+                    {% for message in messages %}
+                    {% if message.extra_tags == 'first_name' %}
+                    <p class='error' style="color: red">* {{message}}</p>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                    {% if messages %}
+                    {% for message in messages %}
+                    {% if message.extra_tags == 'last_name' %}
+                    <p class='error' style="color: red">* {{message}}</p>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" name="email" placeholder="Email">
+                    {% if messages %}
+                    {% for message in messages %}
+                    {% if message.extra_tags == 'email' %}
+                    <p class='error' style="color: red">* {{message}}</p>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" placeholder="Password">
+                    {% if messages %}
+                    {% for message in messages %}
+                    {% if message.extra_tags == 'password' %}
+                    <p class='error' style="color: red">* {{message}}</p>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="confirm" placeholder="Confirm Password">
+                    {% if messages %}
+                    {% for message in messages %}
+                    {% if message.extra_tags == 'confirm' %}
+                    <p class='error' style="color: red">* {{message}}</p>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="form" value="registrationprocess">
+                    <input type="submit" class="btn btn-success btn-lg btn-block">
+                </div>
+            </form>
+        </div>
+        <div class="signup-form">
+            <form action="/loginprocess" method="POST">
+                {% csrf_token %}
+          
+
+                <h2>Log in</h2>
+                <div class="form-group">
+                    <input type="email" class="form-control" name="log_email" placeholder="Email">
+                    {% if messages %}
+                    {% for message in messages %}
+                    {% if message.extra_tags == 'log_email' %}
+                    <p class='error' style="color: red">* {{message}}</p>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                        
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="log_password" placeholder="Password">
+                    {% if messages %}
+                    {% for message in messages %}
+                    {% if message.extra_tags == 'log_password' %}
+                    <p class='error' style="color: red">* {{message}}</p>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="form" value="loginprocess">
+                    <input type="submit" class="btn btn-success btn-lg btn-block">
+                </div>
+            </form>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+            integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+            integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous">
+        </script>
+    </body>
+</html>

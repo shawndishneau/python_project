@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>The Thrill e App</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="../../static/project_app/partyinfo.css">
+            {% load static %}	
+    </head>
+            
+    <body class="body ml-5 white" style="background-image: url('https://cdn.pixabay.com/photo/2017/02/10/15/57/full-moon-2055469_1280.jpg'); background-size: 100%;">
+        <div class="row header">
+            <div class="col-10">
+                <!-- <h2 style="color: blue">Hello {{user.first_name}}!</h2> -->
+            </div>
+            <div class="col-2">
+                <a href="/logout">Log Out</a> |
+                <a href="/dashboard">Dashboard</a>
+
+            </div>
+            <div class="col-10">
+                <a href="/party/{{party.id}}/getdirections"><button>Get Directions</button></a>
+            </div>
+        </div>
+        <div class="tripbox1 mt-5">
+            <h3>Here are the details of this party</h3>
+            {% csrf_token %}
+            <h5>Title: <span style="color:orangered"> {{party.title}}</span></h5>
+            <h5>Description: <span style="color:orangered">{{party.description}}</span></h5>
+            {{directions}}
+            <h5>Address: <span style="color:orangered">{{party.address}}</span></h5>
+            <h5>City: <span style="color:orangered">{{party.city}}</span></h5>
+            <h5>State: <span style="color:orangered">{{party.state}}</span></h5>
+            <h5>Zip Code: <span style="color:orangered">{{party.zip_code}}</span></h5>
+            <h5>Date: <span style="color:orangered">{{party.date}}</span></h5>
+            {% if party.creator.id == user.id %}
+            <a href="/party/{{party.id}}/editinfo"><button>Edit Party</button></a>
+            <a href="/party/{{party.id}}/removeprocess"><button>Remove Party</button></a>
+            <a href="/party/{{party.id}}/writemessage"><button>Write a Message</button></a>
+            {% else %}
+            <a href="/party/{{party.id}}/writemessage"><button>Write a Message</button></a>
+            {% endif %}
+        </div>
+        <div class="tripbox2 mt-5">
+            {% csrf_token %}
+            <h3 style="color: yellow">People who have joined this party</h3>
+            <ul>
+                {% for person in participants %}
+                <li>{{person.first_name}} {{person.last_name}}</li>
+                {% endfor %}
+            </ul>
+            {% if party.acreator != user and user not in participants %}
+            <a href="/party/{{party.id}}/joinprocess"><button>Join Party</button></a>
+            {% elif trip.creator == user %}
+            <a href="/party/{{party.id}}/cancelprocess"><button>Cancel</button></a>
+            {% endif %}
+        </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+            </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+            integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous">
+            </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+            integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous">
+            </script>
+    </body>
+</html>

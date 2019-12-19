@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>The Thrill Zone App</title>
+    </head>
+    <body>
+        <div class="header">
+            <h2>Hello, {{user.first_name}}!</h2>
+            <a href="/logout">Log Out</a>
+            <a href="/party/new"><button>Create a new Party</button></a>
+        </div>
+        <div class="leftpartybox">
+            <h3>Your Parties</h3>
+            <table>
+                <thead>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip Code</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    {% for party in my_parties %}
+                    <tr>      
+                        <!-- my_parties comes from views.py -->
+                        <td>{{ party.title }}</td>  
+                        <td>{{ party.description }}</td> 
+                        <td>{{ party.address }}</td>
+                        <td>{{ party.city }}</td>
+                        <td>{{ party.state }}</td>
+                        <td>{{ party.zip_code }}</td>
+                        <td>{{ party.date }}</td>
+                        {% if party.creator.id == user.id %}
+                        <!-- creator is the FK -->
+                            <td><a href="/party/{{party.id}}">View</a> | <a href="/party/{{ party.id }}/editinfo">Edit</a> | <a href="/party/{{party.id}}/removeprocess">Remove</a></td>
+                        {% else %}
+                            <td><a href="/party/{{party.id}}">View</a> | <a href="/party/{{party.id}}/cancelprocess">Cancel</a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="rightpartybox">
+            <h3>Other Peoples' Parties</h3>
+            <table>
+                <thead>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip Code</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    {% for party in avail_parties %}
+                    <tr>      
+                        <!-- avail_parties comes from views.py -->
+                        <td>{{ party.title }}</td>  
+                        <td>{{ party.description }}</td> 
+                        <td>{{ party.address }}</td>
+                        <td>{{ party.city }}</td>
+                        <td>{{ party.state }}</td>
+                        <td>{{ party.zip_code }}</td>
+                        <td>{{ party.date }}</td>
+                        <td><a href="/party/{{party.id}}">View</a> | <a href="/party/{{ party.id }}/joinprocess">Join Party</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,25 @@
+a{
+    font-size: 35px;
+}
+h2{
+    font-size: 40px;
+    text-align: left;
+}
+h5{
+    font-size: 20px;
+    color: white;
+}
+h3{
+    color: white;
+    font-size: 25px;
+}
+.partybox{
+    font-size: 35px;
+    color: white;
+    margin-left: 38% ;
+}
+body{
+    padding: 0px auto;
+    padding-top: 7%;
+    padding-right: 5%;
+}
